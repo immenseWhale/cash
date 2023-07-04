@@ -21,9 +21,9 @@
 	<h1>
 	<!-- 변수값or반환값 -> EL사용 	 -->
 	<!-- 자바코드(제어문) : JSTL 사용 -->
-		<a href="${pageContext.request.contextPath}/Calendar?targetYear=${targetYear}&targetMonth=${targetMonth-1}">이전 달</a>
+		<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth-1}">이전 달</a>
 		${targetYear}년 ${targetMonth+1}월
-		<a href="${pageContext.request.contextPath}/Calendar?targetYear=${targetYear}&targetMonth=${targetMonth+1}">다음 달</a>
+		<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth+1}">다음 달</a>
 	</h1>
 	
 	<table class="table table-bordered ">
@@ -55,13 +55,13 @@
 					<!--7일마다 빨간색으로 -->
 					<c:if test="${i % 7 == 0}">
 						<td>
-							<a href="${pageContext.request.contextPath}/CalendarOne?targetYear=${targetYear}&targetMonth=${targetMonth-1}&targetDay=${dateNum}">
+							<a href="${pageContext.request.contextPath}/calendarOne?targetYear=${targetYear}&targetMonth=${targetMonth-1}&targetDay=${dateNum}">
 								<p class="text-danger">${dateNum}</p>							
 							</a>
 							<!-- 자동으로 가져오기 때문에 getter,setter 없으면 못쓴다. -->
 							<c:forEach var="cashInfo" items="${list}">
 								<!-- 날짜와 cashInfo가 맞는 경우만 츌력 -->
-								<c:if test="${dateNum == fn:substring(cashInfo.cashbookDate, 9,10) }">
+								<c:if test="${dateNum == fn:substring(cashInfo.cashbookDate, 8,10) }">
 									<div>
 										<!-- 수입인 경우 + -->
 										<c:if test="${cashInfo.category=='수입'}">										
@@ -79,11 +79,13 @@
 					<!--빨간색이 아닌 날 -->
 					<c:if test="${i % 7 != 0}">
 						<td>
-							<p class="text-body">${dateNum}</p>
+							<a href="${pageContext.request.contextPath}/calendarOne?targetYear=${targetYear}&targetMonth=${targetMonth-1}&targetDay=${dateNum}">	
+								<p class="text-body">${dateNum}</p>
+							</a>
 							<!-- 자동으로 가져오기 때문에 getter,setter 없으면 못쓴다. -->
 							<c:forEach var="cashInfo" items="${list}">
 								<!-- 날짜와 cashInfo가 맞는 경우만 츌력 -->
-								<c:if test="${dateNum == fn:substring(cashInfo.cashbookDate, 9,10) }">
+								<c:if test="${dateNum == fn:substring(cashInfo.cashbookDate, 8,10) }">
 									<div>
 										<!-- 수입인 경우 + -->
 										<c:if test="${cashInfo.category=='수입'}">										

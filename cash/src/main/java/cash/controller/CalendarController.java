@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/Calendar")
+@WebServlet("/calendar")
 public class CalendarController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,6 +44,7 @@ public class CalendarController extends HttpServlet {
 			//변동 된 달력을 새로 받아온다
 			targetYear = firstDay.get(Calendar.YEAR);
 			targetMonth = firstDay.get(Calendar.MONTH);
+			System.out.println(targetMonth + "<--targetMonth-- CalendarController " );
 		}
 		
 		//달력출력시 시작 공백(1일 이전의 빈칸)
@@ -65,6 +66,8 @@ public class CalendarController extends HttpServlet {
 		//모델을 호출(DAO 타겟 월의 수입/지출 데이터)
 		List<Cashbook> list = new CashbookDao().selectCashbookListByMonth(memberId, targetYear, targetMonth+1);		
 		//System.out.println(list + "<--list-- CalendarController " );
+		
+		List<Map<String, Object>> htList = new HashtagDao().selectWordCountByMonth(targetYear, targetMonth);
 		
 		//뷰에 값 넘기기(request 속성)
 		request.setAttribute("targetYear", targetYear);

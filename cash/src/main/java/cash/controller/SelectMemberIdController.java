@@ -12,7 +12,7 @@ import cash.model.*;
 import com.google.gson.Gson;
 import java.io.PrintWriter;
 
-@WebServlet("/SelectMemberId")
+@WebServlet("/selectMemberId")
 public class SelectMemberIdController extends HttpServlet {
 	
 	//포스트 요청

@@ -45,7 +45,6 @@ public class CashbookDao {
 					rs.close();
 					stmt.close();
 					conn.close();
-					rs.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}				
@@ -106,5 +105,51 @@ public class CashbookDao {
 			}				
 		}		
 	 return mapList;
+	}
+	
+
+	//반환값 : cashbook_no 키값
+	public int insertCashbook(Cashbook cashbook) {
+		int cashbookNo = 0;
+		
+		Connection conn = null;
+		PreparedStatement stmt =null;
+		ResultSet rs = null;				//입력 후 생성된 키값 반환
+		String sql = "INSERT INTO cashbook(member_id, category, cashbook_date, price, memo, createdate, updatedate) "
+				+ "VALUES( ?,?,?,?,?,NOW(),NOW() )";
+			
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
+			stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, cashbook.getMemberId());
+			stmt.setString(2, cashbook.getCategory());
+			stmt.setString(3, cashbook.getCashbookDate());
+			stmt.setInt(4, cashbook.getPrice());
+			stmt.setString(5, cashbook.getMemo());
+			System.out.println(stmt + "<--stmt-- insertCashbook " );
+			stmt.executeUpdate();
+			rs = stmt.getGeneratedKeys();
+	        if (rs.next()) {
+	        	cashbookNo = rs.getInt(1);	
+				System.out.println(cashbookNo + "<--insert Key값-- insertCashbook " );       	
+	        }
+	        
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			try {
+				stmt.close();
+				conn.close();
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}				
+		}		
+		
+		
+		
+		return cashbookNo;
 	}
 }

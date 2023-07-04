@@ -15,7 +15,7 @@ import cash.vo.*;
 import cash.model.*;
 
 
-@WebServlet("/CalendarOne")
+@WebServlet("/calendarOne")
 public class CalendarOneController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//session 인증 검사
@@ -32,14 +32,23 @@ public class CalendarOneController extends HttpServlet {
 		if(request.getParameter("targetYear") != null) {
 			targetYear = Integer.parseInt(request.getParameter("targetYear") );
 			System.out.println(targetYear + "<--targetYear-- CalendarOneController");
+		}else {
+			response.sendRedirect(request.getContextPath()+"/calendar");
+			return;
 		}
 		if(request.getParameter("targetMonth") != null) {
-			targetMonth =  Integer.parseInt(request.getParameter("targetMonth") );
+			targetMonth =  Integer.parseInt(request.getParameter("targetMonth") )+1;
 			System.out.println(targetMonth + "<--targetMonth-- CalendarOneController");
+		}else {
+			response.sendRedirect(request.getContextPath()+"/calendar");
+			return;
 		}
 		if(request.getParameter("targetDay") != null) {
 			targetDay =  Integer.parseInt(request.getParameter("targetDay") );
 			System.out.println(targetDay + "<--targetDay-- CalendarOneController");
+		}else {
+			response.sendRedirect(request.getContextPath()+"/calendar");
+			return;
 		}
 		
 		
@@ -51,7 +60,10 @@ public class CalendarOneController extends HttpServlet {
 		System.out.println(mapList + "<--mapList-- CalendarOneController");
 
 		//뷰에 값 넘기기(request 속성)
-		request.setAttribute("mapList", mapList);		
+		request.setAttribute("mapList", mapList);	
+		request.setAttribute("targetYear", targetYear);		
+		request.setAttribute("targetMonth", targetMonth);		
+		request.setAttribute("targetDay", targetDay);			
 
 		//calendarOne을 출력하는 뷰
 		request.getRequestDispatcher("/WEB-INF/view/calendarOne.jsp").forward(request, response);

@@ -28,14 +28,14 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="m" items="mapList">
+			<c:forEach var="m" items="${mapList}">
 				<tr>	
 					<td>${m.cashbookNo}</td>		
 					<td>${m.cashbookDate}</td>		
-					<td>
-						<c:if test="${m.categoy =='수입'}"><span>+${m.price}</span></c:if>
-						<c:if test="${m.categoy =='지출'}"><span>-${m.price}</span></c:if>											
-					</td>		
+	<td>
+		<c:if test="${m.category == '수입'}"><span>+${m.price}</span></c:if>
+		<c:if test="${m.category == '지출'}"><span>-${m.price}</span></c:if>                     
+	</td>   	
 					<td>${m.word}</td>		
 					<td>${m.createdate}</td>		
 					<td>${m.updatedate}</td>		
@@ -43,6 +43,7 @@
 			</c:forEach>
 		</tbody>					
 	</table>
+	<a href="${pageContext.request.contextPath}/addCashbook?targetYear=${targetYear}&targetMonth=${targetMonth+1}&targetDay=${targetDay} ">쓰기</a>
 </div>
 </body>
 </html>

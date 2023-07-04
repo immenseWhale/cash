@@ -20,7 +20,7 @@ public class LoginController extends HttpServlet {
 		System.out.println("check");
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginMember") != null) {
-			response.sendRedirect(request.getContextPath()+"/cashbook");
+			response.sendRedirect(request.getContextPath()+"/calendar");
 			return;
 		}
 	}
@@ -44,8 +44,8 @@ public class LoginController extends HttpServlet {
 		//로그인 성공시 세션 사용
 		HttpSession session = request.getSession();
 		System.out.println("로그인 성공");
-		session.setAttribute("loginMember", loginMember);
-		response.sendRedirect(request.getContextPath()+"/cashbook");		//get방식으로 오기 떄문에 jsp페이지로 간다
+		session.setAttribute("loginMember", loginMember.getMemberId());
+		response.sendRedirect(request.getContextPath()+"/calendar");		//get방식으로 오기 떄문에 jsp페이지로 간다
 
 	}
 
