@@ -8,6 +8,10 @@
 </head>
 <body>
 <div>
+    <c:import url="/mainmenu"></c:import>
+</div>
+
+<div>
 	<h1>회원 탈퇴 페이지</h1>
 	<form action="${pageContext.request.contextPath}/removeMember" method="post">
 		비밀번호 확인 : <input name="memberPw" type="password">

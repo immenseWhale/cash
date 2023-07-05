@@ -17,6 +17,11 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+<div>
+    <c:import url="/mainmenu"></c:import>
+</div>
+
+
 <div class="container">
 	<h1>
 	<!-- 변수값or반환값 -> EL사용 	 -->
@@ -26,6 +31,17 @@
 		<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth+1}">다음 달</a>
 	</h1>
 	
+		
+	<div>
+		<h4>이달의 해시태그</h4>
+		<div>
+			<c:forEach var="m" items="${htList}">
+				<a href="${pageContext.request.contextPath}/cashbookListByTag?word=${m.word}">
+					${m.word}(${m.cnt})
+				</a>
+			</c:forEach>
+		</div>
+	</div>
 	<table class="table table-bordered ">
 		<thead>
 			<tr>

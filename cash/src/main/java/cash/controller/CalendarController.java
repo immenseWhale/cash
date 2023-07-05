@@ -16,12 +16,15 @@ import javax.servlet.http.HttpSession;
 public class CalendarController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+
 		//session 인증 검사
 		HttpSession session = request.getSession();
-		String memberId = "test1";
+		String memberId = null;
 
 		if(session.getAttribute("loginMember") != null) {
-			System.out.println("로그인 성공");
+			System.out.println("로그인 성공 <-- CalendarController");
 			memberId = (String)session.getAttribute("loginMember");
 		}
 
@@ -32,6 +35,8 @@ public class CalendarController extends HttpServlet {
 		int targetYear = firstDay.get(Calendar.YEAR);
 		int targetMonth = firstDay.get(Calendar.MONTH);		
 		firstDay.set(Calendar.DATE,1);							//달력의 1일
+		System.out.println(targetYear + "<--targetYear-- CalendarController " );
+		System.out.println(targetMonth + "<--targetMonth-- CalendarController " );
 
 		//출력하고자하는 년도와 월이 매개값으로 넘어왔다면
 		if(request.getParameter("targetYear") !=null 
@@ -44,15 +49,14 @@ public class CalendarController extends HttpServlet {
 			//변동 된 달력을 새로 받아온다
 			targetYear = firstDay.get(Calendar.YEAR);
 			targetMonth = firstDay.get(Calendar.MONTH);
-			System.out.println(targetMonth + "<--targetMonth-- CalendarController " );
 		}
 		
 		//달력출력시 시작 공백(1일 이전의 빈칸)
 		int beginBlank = firstDay.get(Calendar.DAY_OF_WEEK)-1;		//1일 날짜의 요일(일1,월2,,,토6) -1
-		System.out.println(beginBlank + "<--beginBlank-- CalendarController " );
+		//System.out.println(beginBlank + "<--beginBlank-- CalendarController " );
 		
 		int lastDate = firstDay.getActualMaximum(Calendar.DATE);
-		System.out.println(lastDate + "<--lastDate-- CalendarController " );
+		//System.out.println(lastDate + "<--lastDate-- CalendarController " );
 		
 		//출력되는 월의 마지막 날짜 출력 후 공백 -> 전체 출력 셀의 개수가 7로 나누어 떨어져야한다
 		int endBlank = 0;
@@ -60,14 +64,15 @@ public class CalendarController extends HttpServlet {
 			endBlank = 7 - ((beginBlank+lastDate) % 7);
 		}
 		int totalCell = beginBlank + lastDate + endBlank;
-		System.out.println(endBlank + "<--endBlank-- CalendarController " );
-		System.out.println(totalCell + "<--totalCell-- CalendarController " );
+		//System.out.println(endBlank + "<--endBlank-- CalendarController " );
+		//System.out.println(totalCell + "<--totalCell-- CalendarController " );
 		
 		//모델을 호출(DAO 타겟 월의 수입/지출 데이터)
 		List<Cashbook> list = new CashbookDao().selectCashbookListByMonth(memberId, targetYear, targetMonth+1);		
 		//System.out.println(list + "<--list-- CalendarController " );
 		
-		List<Map<String, Object>> htList = new HashtagDao().selectWordCountByMonth(targetYear, targetMonth);
+		List<Map<String, Object>> htList = new HashtagDao().selectWordCountByMonth(targetYear, targetMonth+1);
+		//System.out.println(htList.size() +"<--htList.size()-- CalendarController " );
 		
 		//뷰에 값 넘기기(request 속성)
 		request.setAttribute("targetYear", targetYear);
@@ -78,6 +83,7 @@ public class CalendarController extends HttpServlet {
 		request.setAttribute("endBlank", endBlank);
 		
 		request.setAttribute("list", list);
+		request.setAttribute("htList", htList);;
 		
 		
 		//달력을 출력하는 뷰

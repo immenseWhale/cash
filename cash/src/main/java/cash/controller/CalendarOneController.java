@@ -55,9 +55,9 @@ public class CalendarOneController extends HttpServlet {
 		//dao호출
 		CashbookDao cashbookDao = new CashbookDao();
 		
-		//model 호출 : 달력 날짜의 상세 내용 조인
+		//	GROUP_CONCAT 을 이용하여 해시태그까지 출력
 		List<HashMap<String, Object>> mapList = cashbookDao.cashbookOneList(memberId, targetYear, targetMonth+1, targetDay);
-		System.out.println(mapList + "<--mapList-- CalendarOneController");
+		//System.out.println(mapList + "<--mapList-- CalendarOneController");
 
 		//뷰에 값 넘기기(request 속성)
 		request.setAttribute("mapList", mapList);	

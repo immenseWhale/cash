@@ -12,6 +12,10 @@
 <title>memberOne.jsp</title>
 </head>
 <body>
+<div>
+    <c:import url="/mainmenu"></c:import>
+</div>
+
 	<h1>멤버 상세 정보</h1>
 	<p>id : <%=member.getMemberId()  %></p>
 	<p>pw :<%=member.getMemberpw() %> </p>

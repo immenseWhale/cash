@@ -13,6 +13,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 </head>
 <body>
+<div>
+    <c:import url="/mainmenu"></c:import>
+</div>
+
 	<h1>멤버 정보 수정</h1>
 	<form action="${pageContext.request.contextPath}/modifyMember" method="post">
 		<p>

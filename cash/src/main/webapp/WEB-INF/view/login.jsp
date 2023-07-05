@@ -7,6 +7,10 @@
 <title>login.jsp</title>
 </head>
 <body>
+<div>
+    <c:import url="/mainmenu"></c:import>
+</div>
+
 	<h1>로그인</h1>
 	<!-- 중복되도 상관없는 이유 : get으로 실행되면 컨트롤러에서 doGet으로 받고, post방식으로 오면 getPost로 받아서 이렇게 표현해도 괜찮다. -->
 	<form action="${pageContext.request.contextPath}/login" method="post">

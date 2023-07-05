@@ -6,6 +6,10 @@
 <title>cashbook.jsp</title>
 </head>
 <body>
+<div>
+    <c:import url="/mainmenu"></c:import>
+</div>
+
 	<h1>cashbook.jsp</h1>
 	<!-- 컨트롤러 매핑 이름 : logout -->
 	<a href="${pageContext.request.contextPath}/logout">로그아웃</a>

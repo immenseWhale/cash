@@ -11,6 +11,10 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+<div>
+    <c:import url="/mainmenu"></c:import>
+</div>
+
 	<h1>가계부 작성</h1>
 	<h5>${targetYear}년 ${targetMonth}월 ${targetDay}일</h5>
 	<form action="${pageContext.request.contextPath}/addCashbook" method="post">

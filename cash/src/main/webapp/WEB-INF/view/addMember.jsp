@@ -14,7 +14,7 @@ $(document).ready(function() {
 
 		// AJAX 요청 보내기
 		$.ajax({
-			url: '${pageContext.request.contextPath}/SelectMemberId', // 중복 체크를 수행하는 서블릿 주소
+			url: '${pageContext.request.contextPath}/selectMemberId', // 중복 체크를 수행하는 서블릿 주소
 			type: 'POST',
 			data: { memberId: memberId }, // 서버로 보낼 데이터
 			success: function(response) {
@@ -39,7 +39,10 @@ $(document).ready(function() {
 
 </head>
 <body>
-	
+<div>
+    <c:import url="/mainmenu"></c:import>
+</div>
+
 	<h1>회원가입</h1>
 	<!-- 중복되도 상관없는 이유 : get으로 실행되면 컨트롤러에서 doGet으로 받고, post방식으로 오면 getPost로 받아서 이렇게 표현해도 괜찮다. -->
 	<form action="${pageContext.request.contextPath}/addMember" method="post">
