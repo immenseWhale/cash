@@ -31,7 +31,8 @@
 		<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth+1}">다음 달</a>
 	</h1>
 	
-		
+	
+	<!-- 해시캐그 목록 출력 -->
 	<div>
 		<h4>이달의 해시태그</h4>
 		<div>
@@ -42,6 +43,9 @@
 			</c:forEach>
 		</div>
 	</div>
+	
+	
+	
 	<table class="table table-bordered ">
 		<thead>
 			<tr>

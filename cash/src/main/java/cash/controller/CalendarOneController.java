@@ -20,7 +20,7 @@ public class CalendarOneController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//session 인증 검사
 		HttpSession session = request.getSession();
-		String memberId = "test1";
+		String memberId = null;
 
 		if(session.getAttribute("loginMember") != null) {
 			System.out.println("로그인 성공");

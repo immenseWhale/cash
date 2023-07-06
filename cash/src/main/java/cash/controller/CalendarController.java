@@ -71,7 +71,7 @@ public class CalendarController extends HttpServlet {
 		List<Cashbook> list = new CashbookDao().selectCashbookListByMonth(memberId, targetYear, targetMonth+1);		
 		//System.out.println(list + "<--list-- CalendarController " );
 		
-		List<Map<String, Object>> htList = new HashtagDao().selectWordCountByMonth(targetYear, targetMonth+1);
+		List<Map<String, Object>> htList = new HashtagDao().selectWordCountByMonth(memberId, targetYear, targetMonth+1);
 		//System.out.println(htList.size() +"<--htList.size()-- CalendarController " );
 		
 		//뷰에 값 넘기기(request 속성)

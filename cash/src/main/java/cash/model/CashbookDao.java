@@ -159,6 +159,9 @@ GROUP BY c.cashbook_no, c.member_id;
 					c.setCategory(rs.getString("category"));
 					c.setPrice(rs.getInt("price"));
 					c.setCashbookDate(rs.getString("cashbookDate"));
+					c.setMemo(rs.getString("memo"));
+					c.setCreatedate(rs.getString("createdate"));
+					c.setUpdatedate(rs.getString("updatedate"));
 				    list.add(c); 
 
 				}
@@ -176,6 +179,45 @@ GROUP BY c.cashbook_no, c.member_id;
 			}		
 		 return list;
 	}
+	
+	//태그 페이지 총 행
+	public int hashtagCashbookRow(String memberId, String word){
+		int row = 0;
+		
+		Connection conn = null;
+		PreparedStatement stmt =null;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT(*) AS totalRow "
+                 + "FROM cashbook c INNER JOIN hashtag h ON c.cashbook_no = h.cashbook_no "
+                 + "WHERE c.member_id = ? AND h.word =?";
+			
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, memberId);
+			stmt.setString(2, word);
+			System.out.println(stmt + "<--stmt-- tagCashbookRow " );
+
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				row = rs.getInt("totalRow");
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}				
+		}		
+		 return row;
+	}
+	
 	
 
 	//반환값 : cashbook_no 키값

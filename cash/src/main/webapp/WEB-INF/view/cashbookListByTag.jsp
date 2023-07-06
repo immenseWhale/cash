@@ -21,13 +21,60 @@
 <div class="container">	
 	<div align="center">
 		<h1>이 달의 태그</h1>
+		<h5>${word}</h5>
 	</div>	
-	<c:forEach var="m" items="${mapList}">
+
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>No</th>
+				<th>Date</th>
+				<th>Price</th>
+				<th>Memo</th>
+				<th>Createdate</th>
+				<th>Updatedate</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="m" items="${list}">
+				<tr>	
+					<td>${m.cashbookNo}</td>		
+					<td>${m.cashbookDate}</td>		
+					<td>
+						<c:if test="${m.category == '수입'}"><span>+${m.price}</span></c:if>
+						<c:if test="${m.category == '지출'}"><span>-${m.price}</span></c:if>                     
+					</td>   	
+					<td>${m.memo}</td>	
+					<td>${m.createdate}</td>		
+					<td>${m.updatedate}</td>		
+				</tr>
+			</c:forEach>
+		</tbody>					
+	</table>
+
+<!-- 페이징 -->
+<div>
 	
+	<c:if test="${minPage > 1}">
+		<a href="${pageContext.request.contextPath}/cashbookListByTag?currentPage=${minPage-pagePerPage}&word=${word}">이전</a>
+	</c:if>
+	
+	<c:forEach var="i" begin="${minPage}" end="${maxPage}" step="1">	
+		<c:choose>
+			<c:when test="${i == currentPage}">
+				<span>${i}</span>
+			</c:when>
+			<c:otherwise>
+				<a href="${pageContext.request.contextPath}/cashbookListByTag?currentPage=${i}&word=${word}">${i}</a>
+			</c:otherwise>
+		</c:choose>
 	</c:forEach>
+
 	
-	<a href="${pageContext.request.contextPath}/cashbookListByTag?beginRow=${beginRow}&rowPerPage=${rowPerPage}">이전</a>
-	<a href="${pageContext.request.contextPath}/cashbookListByTag?beginRow=${beginRow}&rowPerPage=${rowPerPage}">다음</a>
+	<c:if test="${maxPage != lastPage}">
+		<c:set var="nextPage" value="${currentPage + 1}" />
+		<a href="${pageContext.request.contextPath}/cashbookListByTag?currentPage=${minPage+pagePerPage}&word=${word}">다음</a>
+	</c:if>
 </div>
 
 </body>

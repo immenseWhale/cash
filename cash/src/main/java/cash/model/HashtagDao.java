@@ -38,7 +38,7 @@ public class HashtagDao {
 			return row;
 		}
 		
-		public List<Map<String, Object>> selectWordCountByMonth (int targetYear, int targetMonth){
+		public List<Map<String, Object>> selectWordCountByMonth (String memberId, int targetYear, int targetMonth){
 			List<Map<String, Object>> mapList = new ArrayList ();
 			
 			Connection conn = null;
@@ -47,15 +47,16 @@ public class HashtagDao {
 			String sql = "SELECT h.word word, COUNT(*) cnt "
 					+ "FROM hashtag h  "
 					+ "	INNER JOIN cashbook c ON h.cashbook_no = c.cashbook_no "
-					+ "WHERE YEAR(c.cashbook_date) = ? AND MONTH(c.cashbook_date) = ? "
+					+ "WHERE c.member_id = ? AND YEAR(c.cashbook_date) = ? AND MONTH(c.cashbook_date) = ? "
 					+ "GROUP BY word ORDER BY cnt DESC";
 				
 			try {
 				Class.forName("org.mariadb.jdbc.Driver");
 				conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
 				stmt = conn.prepareStatement(sql);
-				stmt.setInt(1, targetYear);
-				stmt.setInt(2, targetMonth);
+				stmt.setString(1, memberId);
+				stmt.setInt(2, targetYear);
+				stmt.setInt(3, targetMonth);
 				//System.out.println(stmt + "<--stmt-- selectWordCountByMonth HashtagDao" );
 				
 				rs = stmt.executeQuery();
