@@ -10,39 +10,77 @@
 <head>
 <meta charset="UTF-8">
 <title>calendar.jsp</title>
-	<!-- Latest compiled and minified CSS -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-	
-	<!-- Latest compiled JavaScript -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-</head>
-<body>
+  <!--  
+    Stylesheets
+    =============================================
+    
+    -->
+    <!-- Default stylesheets-->
+    <link href="${pageContext.request.contextPath}/assets/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Template specific stylesheets-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/assets/lib/animate.css/animate.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/assets/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/assets/lib/et-line-font/et-line-font.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/assets/lib/flexslider/flexslider.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/assets/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/assets/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/assets/lib/magnific-popup/dist/magnific-popup.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/assets/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
+    <!-- Main stylesheet and color file-->
+    <link href="${pageContext.request.contextPath}/assets/css/style.css" rel="stylesheet">
+    <link id="color-scheme" href="${pageContext.request.contextPath}/assets/css/colors/default.css" rel="stylesheet">
+  </head>
+
+  <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
 <div>
     <c:import url="/mainmenu"></c:import>
 </div>
+    
+    <main>       
+        
+        <section class="module">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-4 col-md-3 sidebar">
+ <!-- 서치 -->
+                <div class="widget">
+                  <form role="form">
+                    <div class="search-box">
+                      <input class="form-control" type="text" placeholder="Search..."/>
+                      <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
+                    </div>
+                  </form>
+                </div>
+<!--  태그 -->
+                <div class="widget">
+                  <h5 class="widget-title font-alt">Tag</h5>
+			  <div class="tags font-serif">
+					<c:forEach var="m" items="${htList}">
+						<a href="${pageContext.request.contextPath}/cashbookListByTag?word=${m.word}" rel="tag">
+							${m.word}(${m.cnt})
+						</a>
+					</c:forEach>
+                  </div>
+                </div>
 
 
-<div class="container">
+
+
+              </div>
+              <div class="col-sm-8 col-sm-offset-1">
+                <div class="post">
+                
 	<h1>
 	<!-- 변수값or반환값 -> EL사용 	 -->
 	<!-- 자바코드(제어문) : JSTL 사용 -->
-		<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth-1}">이전 달</a>
+		<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth-1}">	&#60;&#60;</a>
 		${targetYear}년 ${targetMonth+1}월
-		<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth+1}">다음 달</a>
+		<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth+1}">&#62;&#62;</a>
 	</h1>
 	
-	
-	<!-- 해시캐그 목록 출력 -->
-	<div>
-		<h4>이달의 해시태그</h4>
-		<div>
-			<c:forEach var="m" items="${htList}">
-				<a href="${pageContext.request.contextPath}/cashbookListByTag?word=${m.word}">
-					${m.word}(${m.cnt})
-				</a>
-			</c:forEach>
-		</div>
-	</div>
 	
 	
 	
@@ -128,6 +166,68 @@
 			</c:forEach>
 		</tr>
 	</table>
-</div>
-</body>
+                
+                </div>
+                </div>
+            </div>
+          </div>
+        </section>
+        
+        
+        
+        <div class="module-small bg-dark">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="widget">
+                  <h5 class="widget-title font-alt">About Titan</h5>
+                  <p>The languages only differ in their grammar, their pronunciation and their most common words.</p>
+                  <p>Phone: +1 234 567 89 10</p>Fax: +1 234 567 89 10
+                  <p>Email:<a href="#">somecompany@example.com</a></p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        
+        
+        
+        
+        
+        <hr class="divider-d">
+        <footer class="footer bg-dark">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-6">
+                <p class="copyright font-alt">&copy; 2017&nbsp;<a href="index.html">TitaN</a>, All Rights Reserved</p>
+              </div>
+              <div class="col-sm-6">
+                <div class="footer-social-links"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-dribbble"></i></a><a href="#"><i class="fa fa-skype"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+      <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
+    </main>
+    <!--  
+    JavaScripts
+    =============================================
+    -->
+    <script src="${pageContext.request.contextPath}/assets/lib/jquery/dist/jquery.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/lib/wow/dist/wow.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/lib/isotope/dist/isotope.pkgd.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/lib/flexslider/jquery.flexslider.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/lib/owl.carousel/dist/owl.carousel.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/lib/smoothscroll.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/plugins.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
+  </body>
 </html>
