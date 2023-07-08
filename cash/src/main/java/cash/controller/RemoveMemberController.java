@@ -33,6 +33,7 @@ public class RemoveMemberController extends HttpServlet {
 			loginMember = (Member) (session.getAttribute("loginMember"));
 			System.out.println(loginMember.getMemberId()+"<--새로 들어온 아이디-- RemoveMemberController");
 		}else {
+			// 세션이 없는 경우, 로그인 페이지로 리다이렉트
 			System.out.println("세션검사 리턴 <-- RemoveMemberController");
 			request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
 			return;
@@ -48,7 +49,7 @@ public class RemoveMemberController extends HttpServlet {
 		if(result==1) {
 			//탈퇴성공
 			System.out.println("탈퇴성공<-- RemoveMemberController");
-			session.invalidate();
+			session.invalidate();		//세션 무효화
 			response.sendRedirect(request.getContextPath()+"/login");
 		}else {
 			//탈퇴실패

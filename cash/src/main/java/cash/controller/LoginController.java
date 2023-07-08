@@ -16,13 +16,17 @@ import javax.servlet.http.HttpSession;
 public class LoginController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
 		System.out.println("check");
 		HttpSession session = request.getSession();
+		
+		//이미 로그인 된 경우, 캘린더 페이지로 리다이렉트
 		if(session.getAttribute("loginMember") != null) {
 			response.sendRedirect(request.getContextPath()+"/calendar");
 			return;
 		}
+		//로그인 페이지로 포워딩
+		request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
+
 	}
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

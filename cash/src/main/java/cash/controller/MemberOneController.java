@@ -17,17 +17,16 @@ public class MemberOneController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//session 유효검사 (null일 때만 통과)
 		HttpSession session = request.getSession();
-		Member loginMember = new Member();
+		String memberId = (String) session.getAttribute("loginMember");
 		
-		if(session.getAttribute("loginMember") != null) {
-			loginMember = (Member) (session.getAttribute("loginMember"));
-		}else {
-			request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
+		if (memberId == null) {
+			//로그인 되지 않은 경우, 로그인 페이지로 리다이렉트
+			response.sendRedirect(request.getContextPath() + "/login");
 			return;
 		}
 		//모델값 구하기 dao
 		MemberDao memberDao = new MemberDao();
-		Member member = memberDao.selectMemberOne(loginMember.getMemberId());
+		Member member = memberDao.selectMemberOne(memberId);
 		//member 출력하는(포워딩대상) memberOne.jsp에도 공유되어야 한다. request가 공유되니까 request 안에 넣어서 공유한다.
 		String cutPw = (member.getMemberpw()).substring(0,6);
 		//System.out.println(cutPw +"<--cutPw-- MemberOneController");

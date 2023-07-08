@@ -11,7 +11,7 @@ import cash.vo.*;
 import cash.model.*;
 
 @WebServlet("/modifyMember")
-public class modifyMemberController extends HttpServlet {
+public class ModifyMemberController extends HttpServlet {
 	//회원 수정폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -19,10 +19,9 @@ public class modifyMemberController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Member loginMember = new Member();
 		
+		//로그인 되지 않은 경우, 로그인 페이지로 리다이렉트
 		if(session.getAttribute("loginMember") != null) {
 			loginMember = (Member) (session.getAttribute("loginMember"));
-		}else {
-			request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
 			return;
 		}
 		
