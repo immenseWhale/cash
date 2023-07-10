@@ -59,26 +59,28 @@
           </div>
           <div class="col-sm-6 text-right">
             <form action="${pageContext.request.contextPath}/addMember" method="get">
-              <button type="submit">회원가입</button>
+              <button type="submit"  class="btn btn-g btn-circle">JOIN</button>
             </form>
           </div>
         </div>
-					            
+				<div class="row" align="center">	            
                 <hr class="divider-w mt-10 mb-20">
 					<!-- 중복되도 상관없는 이유 : get으로 실행되면 컨트롤러에서 doGet으로 받고, post방식으로 오면 getPost로 받아서 이렇게 표현해도 괜찮다. -->
 					<form class="form" role="form" action="${pageContext.request.contextPath}/login" method="post">
-						<table border="1">
+						<table border="1" style="padding: 10px">
 							<tr>
-								<td>Member Id</td>
+								<td> Member ID </td>
 								<td>	<input class="form-control" type ="text" name="memberId"></td>
 							</tr>
 							<tr>
-								<td>Member Pw</td>
+								<td> Member PW </td>
 								<td>	<input class="form-control" type ="password" name="memberPw"></td>
 							</tr>
 						</table>
-						<button type="submit">Login</button>
+						<br>
+						<button  type="submit">Login</button>
 					</form>
+					</div>
               </div>
             </div>
           </div>
