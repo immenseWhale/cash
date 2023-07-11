@@ -70,11 +70,11 @@
 						<table border="1" style="padding: 10px">
 							<tr>
 								<td> Member ID </td>
-								<td>	<input class="form-control" type ="text" name="memberId"></td>
+								<td>	<input type ="text" name="memberId"></td>
 							</tr>
 							<tr>
 								<td> Member PW </td>
-								<td>	<input class="form-control" type ="password" name="memberPw"></td>
+								<td>	<input type ="password" name="memberPw"></td>
 							</tr>
 						</table>
 						<br>
