@@ -20,13 +20,16 @@ public class ModifyMemberController extends HttpServlet {
 		Member loginMember = new Member();
 		
 		//로그인 되지 않은 경우, 로그인 페이지로 리다이렉트
-		if(session.getAttribute("loginMember") != null) {
-			loginMember = (Member) (session.getAttribute("loginMember"));
-			return;
+		if (session.getAttribute("loginMember") == null) {
+		    response.sendRedirect(request.getContextPath() + "/login");
+		    return;
 		}
+
+		// 로그인된 경우 로그인 멤버 가져오기
+		String memberId = (String) session.getAttribute("loginMember");
 		
 		MemberDao memberDao = new MemberDao();
-		loginMember = memberDao.selectMemberOne(loginMember.getMemberId());
+		loginMember = memberDao.selectMemberOne(memberId);
 		
 		//jsp에서 출력해주기 위해 세션에 담는다
 		request.setAttribute("member", loginMember);
