@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"    pageEncoding="UTF-8"%>
 <%@ page import = "cash.vo.*" %>
+<!-- jsp 파일 컴파일시 자바코드로 변환되는 c:..(제어문) 커스텀 태그 사용 가능 -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 
 	Member member = (Member) request.getAttribute("member");
@@ -9,7 +11,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<title>modifyMember.jsp</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
 <script>
+$(document).ready(function() {
 	$('#ckBtn').click(function(){
 		//alert('ckbtn click');		
 		//공백일 경우 메시지
@@ -23,11 +29,11 @@
 		} else {
 			alert('비밀번호가 일치합니다.');
 			$('#modifyBtn').prop('disabled', false); // 수정 버튼 활성화
-		}
-	})
+	    }
+	  });
+	});
 </script>
-
-<title>modifyMember.jsp</title>
+ 
  <!--  
     Stylesheets
     =============================================
@@ -52,10 +58,10 @@
     <link id="color-scheme" href="${pageContext.request.contextPath}/assets/css/colors/default.css" rel="stylesheet">
   </head>
 
-  <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
-<div>
-    <c:import url="/mainmenu"></c:import>
-</div>
+<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+	<div>
+	    <c:import url="/mainmenu"></c:import>
+	</div>
 
 <main>
   <div class="main">
