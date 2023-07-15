@@ -11,10 +11,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>memberOne.jsp</title> <!--  
+<title>memberOne.jsp</title> 
+	<!--  
     Stylesheets
     =============================================
-    
     -->
     <!-- Default stylesheets-->
     <link href="${pageContext.request.contextPath}/assets/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
