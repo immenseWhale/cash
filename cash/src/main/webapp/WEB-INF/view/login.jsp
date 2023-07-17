@@ -59,7 +59,7 @@
           </div>
           <div class="col-sm-6 text-right">
             <form action="${pageContext.request.contextPath}/addMember" method="get">
-              <button type="submit"  class="btn btn-g btn-circle">Login</button>
+              <button type="submit"  class="btn btn-g btn-circle">Join</button>
             </form>
           </div>
         </div>
