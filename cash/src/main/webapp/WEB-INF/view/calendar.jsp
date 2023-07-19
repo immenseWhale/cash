@@ -32,6 +32,61 @@
     <!-- Main stylesheet and color file-->
     <link href="${pageContext.request.contextPath}/assets/css/style.css" rel="stylesheet">
     <link id="color-scheme" href="${pageContext.request.contextPath}/assets/css/colors/default.css" rel="stylesheet">
+
+
+	<!-- AJAX -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+	<!-- 차트 자바스크립트 import -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+	
+	<script>
+    $(document).ready(function() {
+        const barColors = ["red", "green", "blue", "orange", "brown"];
+
+        const x = [];
+        const y = [];
+
+        // AJAX로 데이터를 요청하고 차트를 그리는 함수
+        function drawChart() {
+            $.ajax({
+                url: '${pageContext.request.contextPath}/getChartData', // REST API로 데이터를 요청할 URL
+                type: 'get',
+                options: {
+                    title: {
+                        display: true,
+                        text: "이 달의 태그"
+                    }
+                },
+                success: function(json) {
+                    json.forEach(function(item, index) {
+                        // 그래프용 차트 모델 생산
+                        x.push(item.word);
+                        y.push(item.cnt);
+                    });
+
+                    // 차트 그리기
+                    new Chart("chartCanvas", {
+                        type: "doughnut", // 도넛 차트로 변경
+                        data: {
+                            labels: x,
+                            datasets: [{
+                                backgroundColor: barColors,
+                                borderColor: 'white', // 도넛 형태의 경계 색상
+                                data: y
+                            }]
+                        }
+                    });
+                }
+            });
+        }
+
+        // drawChart() 함수를 호출
+        drawChart();
+    });
+</script>
+
+
+ 
   </head>
 
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
@@ -43,11 +98,9 @@
         
         <section class="module">
           <div class="container">
-          
-          
-          
-          
             <div class="row">
+            
+            
               <div class="col-sm-4 col-md-3 sidebar">
  <!-- 서치 -->
                 <div class="widget">
@@ -58,6 +111,8 @@
                     </div>
                   </form>
                 </div>
+                
+                
 <!--  태그 -->
                 <div class="widget">
                   <h5 class="widget-title font-alt">Tag</h5>
@@ -68,22 +123,26 @@
 						</a>
 					</c:forEach>
                   </div>
+                  <br><br>
+                  
+                  <!-- 차트 -->
+				    <div class="chart-container">
+					    <canvas id="chartCanvas" style="width:100%;max-width:700px;height:500px;"></canvas>
+					</div>
                 </div>
-
-
-
-
               </div>
+              
+              
               <div class="col-sm-8 col-sm-offset-1">
                 <div class="post">
                 
-	<h1>
-	<!-- 변수값or반환값 -> EL사용 	 -->
-	<!-- 자바코드(제어문) : JSTL 사용 -->
-		<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth-1}">	&#60;&#60;</a>
-		${targetYear}년 ${targetMonth+1}월
-		<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth+1}">&#62;&#62;</a>
-	</h1>
+					<h1>
+					<!-- 변수값or반환값 -> EL사용 	 -->
+					<!-- 자바코드(제어문) : JSTL 사용 -->
+						<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth-1}">	&#60;&#60;</a>
+						${targetYear}년 ${targetMonth+1}월
+						<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth+1}">&#62;&#62;</a>
+					</h1>
 	
 	
 	
