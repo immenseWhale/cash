@@ -59,7 +59,7 @@ public class CashbookDao {
 SELECT 
     c.cashbook_no AS cashbookNo, c.member_id AS memberId, c.category AS category, 
     c.cashbook_date AS cashbookDate, c.price AS price, 
-	 c.memo AS memo, GROUP_CONCAT(h.word) AS wordList,
+	 c.memo AS memo, GROUP_CONCAT(h.word) AS serchWord,
     c.createdate AS createdate, c.updatedate AS updatedate
 FROM cashbook c 
 LEFT JOIN hashtag h ON c.cashbook_no = h.cashbook_no
@@ -127,6 +127,83 @@ GROUP BY c.cashbook_no, c.member_id;
 		}		
 	 return mapList;
 	}
+	
+	//서치 결과
+	/*
+SELECT 
+    c.cashbook_no  cashbookNo
+    , c.member_id  memberId, c.category  category
+    , c.cashbook_date   cashbookDate, c.price   price
+    , c.memo AS memo
+    , GROUP_CONCAT(h.word) AS serchWord
+    , c.createdate AS createdate, c.updatedate AS updatedate
+FROM cashbook c 
+LEFT JOIN hashtag h ON c.cashbook_no = h.cashbook_no
+WHERE c.member_id = 'test1' 
+    AND (c.memo LIKE '%검색어%' OR h.word LIKE '%검색어%')
+GROUP BY c.cashbook_no, c.member_id;
+
+	 */
+	public List<HashMap<String, Object>>  SerchSelectJOin(String memberId, String serchString){
+		List<HashMap<String, Object>> mapList = new ArrayList<HashMap<String, Object>>();
+	 	
+		Connection conn = null;
+		PreparedStatement stmt =null;
+		ResultSet rs = null;
+		String sql = "SELECT  "
+				+ "    c.cashbook_no  cashbookNo "
+				+ "    , c.member_id  memberId, c.category  category "
+				+ "    , c.cashbook_date   cashbookDate"
+				+ " 	, c.price   price "
+				+ "    , c.memo AS memo"
+				+ "	, GROUP_CONCAT(h.word) AS serchWord "
+				+ "    , c.createdate AS createdate"
+				+ "	, c.updatedate AS updatedate "
+				+ "FROM cashbook c "
+				+ "	LEFT JOIN hashtag h ON c.cashbook_no = h.cashbook_no "
+				+ "WHERE c.member_id = ?  AND (c.memo LIKE ? OR h.word LIKE ?) "
+				+ "GROUP BY c.cashbook_no, c.member_id";
+			
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, memberId);
+			stmt.setString(2, serchString);
+			stmt.setString(3, serchString);
+			System.out.println(stmt + "<--stmt-- SerchSelectJOin " );
+
+			rs = stmt.executeQuery();
+			System.out.println(rs + "<--rs-- SerchSelectJOin " );
+	        while (rs.next()) {
+	        	HashMap<String, Object> m = new HashMap<String, Object>();
+				m.put("cashbookNo", rs.getInt("cashbookNo"));
+				m.put("category", rs.getString("category"));
+				m.put("price", rs.getInt("price"));
+				m.put("cashbookDate", rs.getString("cashbookDate"));
+				m.put("memo", rs.getString("memo"));
+				m.put("word", rs.getString("serchWord"));
+				m.put("createdate", rs.getString("createdate"));
+				m.put("updatedate", rs.getString("updatedate"));
+				mapList.add(m);
+	        }
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}				
+		}		
+	 return mapList;
+	}	
+	
+	
 	
 	//태그로 정렬한 캐시북 리스트
 	public List<Cashbook> selectCashbookListByTag(String memberId, String word, int beginRow, int rowPerPage ){
