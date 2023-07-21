@@ -132,13 +132,15 @@ GROUP BY c.cashbook_no, c.member_id;
 	/*
 SELECT 
     c.cashbook_no  cashbookNo
-    , c.member_id  memberId, c.category  category
-    , c.cashbook_date   cashbookDate, c.price   price
+    , c.member_id  memberId
+    , c.category  category
+    , c.cashbook_date   cashbookDate
+    , c.price   price
     , c.memo AS memo
-    , GROUP_CONCAT(h.word) AS serchWord
-    , c.createdate AS createdate, c.updatedate AS updatedate
+    , GROUP_CONCAT(h.word)  serchWord
+    , c.createdate createdate, c.updatedate updatedate
 FROM cashbook c 
-LEFT JOIN hashtag h ON c.cashbook_no = h.cashbook_no
+	LEFT JOIN hashtag h ON c.cashbook_no = h.cashbook_no
 WHERE c.member_id = 'test1' 
     AND (c.memo LIKE '%검색어%' OR h.word LIKE '%검색어%')
 GROUP BY c.cashbook_no, c.member_id;
@@ -152,13 +154,14 @@ GROUP BY c.cashbook_no, c.member_id;
 		ResultSet rs = null;
 		String sql = "SELECT  "
 				+ "    c.cashbook_no  cashbookNo "
-				+ "    , c.member_id  memberId, c.category  category "
+				+ "    , c.member_id  memberId"
+				+ "	, c.category  category "
 				+ "    , c.cashbook_date   cashbookDate"
 				+ " 	, c.price   price "
-				+ "    , c.memo AS memo"
-				+ "	, GROUP_CONCAT(h.word) AS serchWord "
-				+ "    , c.createdate AS createdate"
-				+ "	, c.updatedate AS updatedate "
+				+ "    , c.memo  memo"
+				+ "	, GROUP_CONCAT(h.word) serchWord "
+				+ "    , c.createdate  createdate"
+				+ "	, c.updatedate  updatedate "
 				+ "FROM cashbook c "
 				+ "	LEFT JOIN hashtag h ON c.cashbook_no = h.cashbook_no "
 				+ "WHERE c.member_id = ?  AND (c.memo LIKE ? OR h.word LIKE ?) "
