@@ -42,7 +42,7 @@
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
-                <h1 class="module-title font-alt mb-0">Tag of the Month</h1>
+                <h1 class="module-title font-alt mb-0">Serch Word</h1>
               </div>
             </div>
           </div>
@@ -55,7 +55,7 @@
 		      <div class="col-sm-8 col-sm-offset-2">
 		        <div class="row">
 		          <div class="col-sm-6">
-		            <h4 class="font-alt mb-0">${word}</h4>
+		            <h4 class="font-alt mb-0">검색어 : ${word}</h4>
 		          </div>
 		        </div>           
 				<hr class="divider-w mt-10 mb-20">
