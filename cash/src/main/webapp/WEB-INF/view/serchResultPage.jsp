@@ -42,7 +42,7 @@
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
-                <h1 class="module-title font-alt mb-0">Serch Word</h1>
+                <h1 class="module-title font-alt mb-0">Serch</h1>
               </div>
             </div>
           </div>
