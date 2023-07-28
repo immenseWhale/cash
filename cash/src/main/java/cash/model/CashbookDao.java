@@ -146,7 +146,7 @@ WHERE c.member_id = 'test1'
 GROUP BY c.cashbook_no, c.member_id;
 
 	 */
-	public List<HashMap<String, Object>>  SerchSelectJOin(String memberId, String serchString){
+	public List<HashMap<String, Object>>  SerchSelectJoin(String memberId, String serchString){
 		List<HashMap<String, Object>> mapList = new ArrayList<HashMap<String, Object>>();
 	 	
 		Connection conn = null;

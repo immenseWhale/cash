@@ -29,10 +29,22 @@ public class SerchWordController extends HttpServlet {
 			memberId = (String)session.getAttribute("loginMember");
 		}
 		
-		//모델 호출
-		List<HashMap<String, Object>> serchList = CashbookDao.SerchSelectJOin(serchString, serchString);
-
+		String serchString = null;
+		//검색어 변수 선언, 받아오기
+		if(request.getParameter("serchString") !=null ) {
+			serchString = request.getParameter("serchString");
+		}
 		
+		
+		//모델 호출
+		CashbookDao cashbookDao = new CashbookDao();
+		
+		//서치리스트 호출
+		List<HashMap<String, Object>> serchList = cashbookDao.SerchSelectJoin(memberId, serchString);
+		
+		//값 뷰어로 넘기기
+		request.setAttribute("serchList", serchList);
+		request.setAttribute("serchWord", serchString);		
 		
 		//뷰 포워딩
 		request.getRequestDispatcher("/WEB-INF/view/serchResultPage.jsp").forward(request, response);

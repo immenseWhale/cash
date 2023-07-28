@@ -55,7 +55,7 @@
 		      <div class="col-sm-8 col-sm-offset-2">
 		        <div class="row">
 		          <div class="col-sm-6">
-		            <h4 class="font-alt mb-0">검색어 : ${word}</h4>
+		            <h4 class="font-alt mb-0">검색어 : ${serchString}</h4>
 		          </div>
 		        </div>           
 				<hr class="divider-w mt-10 mb-20">
@@ -63,7 +63,7 @@
 				<table class="table table-bordered">
 					<thead>
 						<tr>
-							<th>serchWord</th>
+							<th>cashbookNo</th>
 							<th>Date</th>
 							<th>Price</th>
 							<th>Memo</th>
@@ -71,9 +71,9 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="m" items="${list}">
+						<c:forEach var="m" items="${serchList}">
 							<tr>	
-								<td>${m.serchWord}</td>		
+								<td>${m.cashbookNo}</td>		
 								<td>${m.cashbookDate}</td>		
 								<td>
 									<c:if test="${m.category == '수입'}"><span>+${m.price}</span></c:if>

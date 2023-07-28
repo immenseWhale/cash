@@ -103,14 +103,14 @@
             
               <div class="col-sm-4 col-md-3 sidebar">
  <!-- 서치 -->
-                <div class="widget">
-                  <form role="form">
-                    <div class="search-box">
-                      <input class="form-control" type="text" placeholder="Search..."/>
-                      <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
-                    </div>
-                  </form>
-                </div>
+					<div class="widget">
+					    <form role="form" action="${pageContext.request.contextPath}/serchResultPage" method="get">
+					        <div class="search-box">
+					            <input class="form-control" type="text" name="serchString" placeholder="Search..."/>
+					            <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
+					        </div>
+					    </form>
+					</div>
                 
                 
 <!--  태그 -->
