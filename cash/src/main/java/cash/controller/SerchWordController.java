@@ -44,7 +44,7 @@ public class SerchWordController extends HttpServlet {
 		
 		//값 뷰어로 넘기기
 		request.setAttribute("serchList", serchList);
-		request.setAttribute("serchWord", serchString);		
+		request.setAttribute("serchString", serchString);		
 		
 		//뷰 포워딩
 		request.getRequestDispatcher("/WEB-INF/view/serchResultPage.jsp").forward(request, response);

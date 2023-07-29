@@ -85,30 +85,6 @@
 						</c:forEach>
 					</tbody>					
 				</table>
-		
-		<!-- 페이징 -->
-			<div align="center">		
-				<c:if test="${minPage > 1}">
-					<a href="${pageContext.request.contextPath}/serchResultPage?currentPage=${minPage-pagePerPage}&word=${word}">이전</a>
-				</c:if>
-				
-				<c:forEach var="i" begin="${minPage}" end="${maxPage}" step="1">	
-					<c:choose>
-						<c:when test="${i == currentPage}">
-							<span>${i}</span>
-						</c:when>
-						<c:otherwise>
-							<a href="${pageContext.request.contextPath}/serchResultPage?currentPage=${i}&word=${word}">${i}</a>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-			
-				
-				<c:if test="${maxPage != lastPage}">
-					<c:set var="nextPage" value="${currentPage + 1}" />
-					<a href="${pageContext.request.contextPath}/serchResultPage?currentPage=${minPage+pagePerPage}&word=${word}">다음</a>
-				</c:if>
-			</div>
 		</div></div></div></section></div>
 		 <div>
 		    <c:import url="/footer"></c:import>
