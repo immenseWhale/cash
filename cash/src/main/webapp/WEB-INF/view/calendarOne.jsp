@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>calendarOne.jsp</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+	
 	<!--  
     Stylesheets
     =============================================
@@ -29,13 +31,15 @@
     <link id="color-scheme" href="${pageContext.request.contextPath}/assets/css/colors/default.css" rel="stylesheet">
   </head>
 
-  <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+
 <div>
     <c:import url="/mainmenu"></c:import>
 </div>
 
 
-    <main>               
+
+	<main>               
       <div class="main">
         <section class="module bg-dark-30 about-page-header" data-background="${pageContext.request.contextPath}/assets/images/about_bg.jpg">
           <div class="container">
@@ -96,7 +100,13 @@
 							</c:forEach>
 						</tbody>					
 					</table>
-					<a href="${pageContext.request.contextPath}/addCashbook?targetYear=${targetYear}&targetMonth=${targetMonth+1}&targetDay=${targetDay} ">쓰기</a>
+<!-------------------------- 비회원인 경우 쓰기 불가 -------------------------->
+					<form action="${pageContext.request.contextPath}/addCashbook" method="get">
+						<input type="hidden" name="targetYear" value="${targetYear}">
+						<input type="hidden" name="targetMonth" value="${targetMonth + 1}">
+						<input type="hidden" name="targetDay" value="${targetDay}">
+						<button type="submit" id="writeButton">쓰기</button>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -112,6 +122,33 @@
         
 
 </body>
+<script>
+
+// memberId 가져오기
+let memberId = '<%= session.getAttribute("loginMember") %>';
+let targetYear = '<%= session.getAttribute("targetYear") %>';
+let targetMonth = '<%= session.getAttribute("targetMonth") %>';
+let targetDay = '<%= session.getAttribute("targetDay") %>';
+
+console.log('calendarOne memberId : ' + memberId);
+console.log('calendarOne targetYear : ' + targetYear);
+console.log('calendarOne targetMonth : ' + targetMonth);
+console.log('calendarOne targetDay : ' + targetDay);
+// 쓰기 버튼 클릭 시 이벤트 처리
+	$(document).ready(function() {
+
+		$('#writeButton').click(function() {
+			// memberId가 null, 공백인 경우 알림창 표시
+			if (!memberId || memberId == "") {
+				alert('로그인 후 사용 가능합니다. 로그인 페이지로 이동합니다.');
+				window.location.href = '<%= request.getContextPath() %>/login'; // 로그인 페이지로 이동
+			} else {
+				// memberId가 존재하는 경우, 쓰기 페이지로 이동
+				window.location.href = '<%= request.getContextPath() %>/addCashbook?targetYear=' + targetYear + '&targetMonth=' + targetMonth + '&targetDay=' + targetDay;
+			}
+ 		});
+	});
+</script>
 
     <!--  
     JavaScripts

@@ -51,6 +51,10 @@
             $.ajax({
                 url: '${pageContext.request.contextPath}/getChartData', // REST API로 데이터를 요청할 URL
                 type: 'get',
+                data: {
+                    targetYear: ${targetYear},
+                    targetMonth:${targetMonth} 
+                },
                 options: {
                     title: {
                         display: true,

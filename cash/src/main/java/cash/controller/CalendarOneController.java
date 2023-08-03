@@ -26,6 +26,7 @@ public class CalendarOneController extends HttpServlet {
 			System.out.println("로그인 성공");
 			memberId = (String)session.getAttribute("loginMember");
 		}
+		
 		int targetYear =0;
 		int targetMonth=0;
 		int targetDay = 0;
