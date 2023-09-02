@@ -49,7 +49,7 @@ public class LoginController extends HttpServlet {
 		HttpSession session = request.getSession();
 		System.out.println("로그인 성공");
 		session.setAttribute("loginMember", loginMember.getMemberId());
-		response.sendRedirect(request.getContextPath()+"/calendar");		//get방식으로 오기 떄문에 jsp페이지로 간다
+		response.sendRedirect(request.getContextPath()+"/calendar?targetYear=2023&targetMonth=6");		//get방식으로 오기 떄문에 jsp페이지로 간다
 
 	}
 
